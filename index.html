@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هشام أحمد محمدين — محاسب ومطوّر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16243D;
+    --navy-line:#3A5273;
+    --navy-line-faint:#26375A;
+    --cream-text:#E9E4D3;
+    --cream-text-dim:#A9B4C6;
+    --paper:#F1ECDD;
+    --paper-line:#CBC2A8;
+    --paper-alt:#E8E1CC;
+    --ink:#211E17;
+    --ink-dim:#5C5646;
+    --red:#9C3B2E;
+    --teal:#4C7A72;
+    --radius:2px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-weight:400;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  h1,h2,h3{
+    font-family:'Amiri', serif;
+    margin:0;
+    font-weight:700;
+  }
+  a{ color:inherit; }
+  ::selection{ background:var(--red); color:var(--cream-text); }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--red);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(22,36,61,0.96);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--navy-line);
+  }
+  .nav-inner{
+    max-width:920px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-name{
+    color:var(--cream-text);
+    font-family:'Amiri', serif;
+    font-size:1.1rem;
+    letter-spacing:.02em;
+  }
+  .nav-links{
+    display:flex; gap:26px; list-style:none; margin:0; padding:0;
+  }
+  .nav-links a{
+    color:var(--cream-text-dim);
+    text-decoration:none;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.82rem;
+    padding-bottom:3px;
+    border-bottom:1px solid transparent;
+    transition:color .2s, border-color .2s;
+  }
+  .nav-links a:hover{ color:var(--cream-text); border-color:var(--red); }
+  .nav-toggle{
+    display:none;
+    background:none; border:1px solid var(--navy-line); color:var(--cream-text);
+    font-family:'JetBrains Mono', monospace; font-size:.8rem;
+    padding:6px 10px; cursor:pointer;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:var(--navy);
+    color:var(--cream-text);
+    overflow:hidden;
+    padding:88px 0 76px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, var(--navy-line-faint) 0, var(--navy-line-faint) 1px, transparent 1px, transparent 64px),
+      repeating-linear-gradient(90deg, var(--navy-line-faint) 0, var(--navy-line-faint) 1px, transparent 1px, transparent 64px);
+    opacity:.5;
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--cream-text-dim);
+    font-size:.85rem;
+    margin:0 0 18px;
+    direction:ltr; text-align:right; unicode-bidi:plain-text;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4rem);
+    line-height:1.15;
+    margin-bottom:18px;
+    opacity:0; transform:translateY(14px);
+    animation:rise .8s ease-out .15s forwards;
+  }
+  .hero p.role{
+    font-family:'JetBrains Mono', monospace;
+    font-size:clamp(.95rem, 2vw, 1.15rem);
+    color:var(--cream-text-dim);
+    max-width:600px;
+    margin:0 0 34px;
+    opacity:0; transform:translateY(14px);
+    animation:rise .8s ease-out .3s forwards;
+  }
+  .hero p.role .div{ color:var(--red); margin:0 8px; }
+  .hero-cta{
+    display:flex; gap:16px; flex-wrap:wrap;
+    opacity:0; transform:translateY(14px);
+    animation:rise .8s ease-out .45s forwards;
+  }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+  @media (prefers-reduced-motion: reduce){
+    .hero h1, .hero p.role, .hero-cta{ animation:none; opacity:1; transform:none; }
+  }
+  .btn{
+    display:inline-block;
+    padding:12px 22px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.85rem;
+    text-decoration:none;
+    border-radius:var(--radius);
+    transition:transform .15s ease, background .2s ease, color .2s ease;
+  }
+  .btn-primary{
+    background:var(--red); color:var(--cream-text);
+  }
+  .btn-primary:hover{ transform:translateY(-1px); }
+  .btn-ghost{
+    border:1px solid var(--navy-line);
+    color:var(--cream-text);
+  }
+  .btn-ghost:hover{ border-color:var(--cream-text-dim); }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{ padding:64px 0; }
+  .section-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:32px;
+    border-bottom:1px solid var(--paper-line);
+    padding-bottom:14px;
+  }
+  .section-head .no{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--ink-dim);
+    font-size:.8rem;
+    direction:ltr;
+  }
+  .section-head h2{
+    font-size:1.7rem;
+    color:var(--ink);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about p{
+    font-size:1.05rem;
+    max-width:70ch;
+    color:var(--ink);
+  }
+  .about p + p{ margin-top:16px; }
+
+  /* ---------- EXPERIENCE (ledger) ---------- */
+  .ledger-row{
+    display:flex; justify-content:space-between; gap:24px;
+    padding:22px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .ledger-row:first-child{ padding-top:0; }
+  .ledger-main{ flex:1; }
+  .ledger-main h3{
+    font-size:1.2rem;
+    margin-bottom:4px;
+  }
+  .ledger-main .co{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.82rem;
+    color:var(--teal);
+    margin-bottom:10px;
+    display:block;
+  }
+  .ledger-main ul{
+    margin:0; padding:0 20px 0 0;
+    font-size:.96rem;
+    color:var(--ink-dim);
+  }
+  .ledger-main ul li{ margin-bottom:5px; }
+  .ledger-period{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.82rem;
+    color:var(--ink-dim);
+    white-space:nowrap;
+    direction:ltr;
+    text-align:left;
+    padding-top:3px;
+  }
+  .ledger-note{
+    margin-top:22px;
+    font-size:.92rem;
+    color:var(--ink-dim);
+    border-top:1px dashed var(--paper-line);
+    padding-top:18px;
+  }
+  .ledger-note span.co{ color:var(--ink-dim); }
+
+  /* ---------- SKILLS (balance sheet) ---------- */
+  .balance{
+    display:grid;
+    grid-template-columns:1fr 1px 1fr;
+    gap:0 32px;
+    background:var(--paper-alt);
+    border:1px solid var(--paper-line);
+  }
+  .balance-col{ padding:28px 26px; }
+  .balance-divider{ background:var(--paper-line); }
+  .balance-col h3{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.85rem;
+    font-weight:500;
+    color:var(--red);
+    margin-bottom:16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .balance-col ul{ list-style:none; margin:0; padding:0; }
+  .balance-col li{
+    display:flex; justify-content:space-between;
+    padding:8px 0;
+    font-size:.95rem;
+    border-bottom:1px dotted var(--paper-line);
+  }
+  .balance-col li:last-child{ border-bottom:none; }
+  .balance-col li .dots{ color:var(--ink-dim); font-family:'JetBrains Mono',monospace; font-size:.75rem; }
+
+  @media (max-width:640px){
+    .balance{ grid-template-columns:1fr; }
+    .balance-divider{ display:none; }
+    .balance-col + .balance-col{ border-top:1px solid var(--paper-line); }
+  }
+
+  /* ---------- CERTS & EDUCATION ---------- */
+  .dual{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:48px;
+  }
+  @media (max-width:720px){ .dual{ grid-template-columns:1fr; } }
+  .cert-list{ list-style:none; margin:0; padding:0; }
+  .cert-list li{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:10px 0;
+    font-size:.92rem;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .cert-list li:last-child{ border-bottom:none; }
+  .cert-list .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem;
+    color:var(--teal);
+    white-space:nowrap;
+  }
+  .edu-card{
+    background:var(--navy);
+    color:var(--cream-text);
+    padding:28px 24px;
+    border-radius:var(--radius);
+  }
+  .edu-card h3{ font-size:1.15rem; margin-bottom:8px; }
+  .edu-card p{ margin:4px 0; color:var(--cream-text-dim); font-size:.92rem; }
+  .edu-card .year{ font-family:'JetBrains Mono', monospace; color:var(--red); font-size:.85rem; margin-top:14px; display:block; }
+  .lang-row{ margin-top:20px; display:flex; gap:24px; }
+  .lang-row div{ font-size:.85rem; }
+  .lang-row .label{ font-family:'JetBrains Mono', monospace; color:var(--ink-dim); font-size:.72rem; display:block; margin-bottom:2px; }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    background:var(--navy);
+    color:var(--cream-text);
+    padding:64px 0 40px;
+  }
+  footer h2{ color:var(--cream-text); font-size:1.7rem; margin-bottom:14px; }
+  footer p.lead{ color:var(--cream-text-dim); max-width:55ch; margin-bottom:34px; }
+  .contact-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+    margin-bottom:48px;
+  }
+  @media (max-width:640px){ .contact-grid{ grid-template-columns:1fr; } }
+  .contact-item{
+    border:1px solid var(--navy-line);
+    padding:18px;
+    border-radius:var(--radius);
+  }
+  .contact-item .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem; color:var(--cream-text-dim);
+    display:block; margin-bottom:8px;
+  }
+  .contact-item a, .contact-item span.val{
+    text-decoration:none;
+    font-size:.98rem;
+  }
+  .contact-item a{ direction:ltr; display:block; text-align:right; }
+  .contact-item a:hover{ color:var(--red); }
+  .foot-bottom{
+    border-top:1px solid var(--navy-line);
+    padding-top:22px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.75rem;
+    color:var(--cream-text-dim);
+  }
+
+  @media (max-width:760px){
+    .nav-links{ display:none; }
+    .nav-links.open{
+      display:flex; flex-direction:column;
+      position:absolute; inset-inline:0; top:100%;
+      background:var(--navy); padding:18px 28px; gap:16px;
+      border-bottom:1px solid var(--navy-line);
+    }
+    .nav-toggle{ display:block; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-name">هشام أحمد محمدين</div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">القائمة</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">نبذة</a></li>
+      <li><a href="#experience">الخبرات</a></li>
+      <li><a href="#skills">المهارات</a></li>
+      <li><a href="#education">التعليم</a></li>
+      <li><a href="#contact">تواصل</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <p class="hero-eyebrow">Al-Bukayriyah, Al-Qassim — Saudi Arabia</p>
+    <h1>هشام أحمد محمدين</h1>
+    <p class="role">محاسب<span class="div">/</span>مساعد مدير مشاريع مقاولات<span class="div">/</span>متعلّم برمجة</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#contact">تواصل معي</a>
+      <a class="btn btn-ghost" href="#experience">شوف خبراتي</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="wrap about">
+  <div class="section-head">
+    <span class="no">01</span>
+    <h2>نبذة</h2>
+  </div>
+  <p>خريج كلية التجارة وإدارة الأعمال — قسم الاقتصاد والتجارة الخارجية، جامعة حلوان. خلفيتي جمعت بين المحاسبة والتحليل المالي وأسواق الفوركس من ناحية، وبين العمل الميداني في قطاع المقاولات من ناحية أخرى.</p>
+  <p>أعمل حاليًا كمساعد مدير مشاريع في شركة أعمال المحترفون للتجارة والمقاولات بمنطقة القصيم، وأشارك في إعداد العروض الفنية والمالية لمنافسات مشاريع المياه والصرف الصحي مع شركة المياه الوطنية. بالتوازي، أعمل محاسبًا بدوام جزئي، وأطوّر نفسي ذاتيًا في البرمجة (#C، قواعد بيانات SQL، وتطوير الويب) وفي اللغة الإنجليزية.</p>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="section-head">
+    <span class="no">02</span>
+    <h2>الخبرات العملية</h2>
+  </div>
+
+  <div class="ledger-row">
+    <div class="ledger-main">
+      <h3>مساعد مدير مشاريع</h3>
+      <span class="co">شركة أعمال المحترفون للتجارة والمقاولات — القصيم</span>
+      <ul>
+        <li>إعداد وصياغة العروض الفنية والمالية لمنافسات مشاريع المياه والصرف الصحي مع شركة المياه الوطنية</li>
+        <li>صياغة المراسلات الرسمية وإدارة الوثائق والعقود المالية</li>
+        <li>متابعة وتصفية عهدة مدير المشاريع مع قسم المالية، وإعداد مسيرات الرواتب شهريًا</li>
+      </ul>
+    </div>
+    <div class="ledger-period">Nov 2024 — Present</div>
+  </div>
+
+  <div class="ledger-row">
+    <div class="ledger-main">
+      <h3>محاسب (دوام جزئي)</h3>
+      <span class="co">مؤسسة غزال ضيف الله — السعودية</span>
+      <ul>
+        <li>تسجيل القيود اليومية وتسوية حسابات العملاء والموردين</li>
+        <li>إدارة حسابات مقاولي الباطن ومتابعة المستحقات المالية</li>
+      </ul>
+    </div>
+    <div class="ledger-period">Apr 2026 — Present</div>
+  </div>
+
+  <div class="ledger-row">
+    <div class="ledger-main">
+      <h3>محاسب</h3>
+      <span class="co">مكتب محاسب قانوني معتمد</span>
+      <ul>
+        <li>إعداد وتقديم الإقرارات الضريبية في المواعيد المحددة</li>
+        <li>التعامل مع التأمينات الاجتماعية ومصلحة الضرائب والمحاكم التجارية</li>
+      </ul>
+    </div>
+    <div class="ledger-period">Jul 2024 — Nov 2024</div>
+  </div>
+
+  <div class="ledger-row">
+    <div class="ledger-main">
+      <h3>متداول فوركس مستقل</h3>
+      <span class="co">عمل حر لحسابه الخاص</span>
+      <ul>
+        <li>تحليل فني وأساسي للأسواق المالية العالمية، وتطبيق استراتيجيات إدارة المخاطر</li>
+      </ul>
+    </div>
+    <div class="ledger-period">2019 — Present</div>
+  </div>
+
+  <p class="ledger-note">بداية مسيرتي المهنية كانت في أعمال تشغيلية بشركة <span class="co">غبور للسيارات والدراجات النارية</span> وشركة <span class="co">إديتا للصناعات الغذائية</span> (2017–2022)، اكتسبت منها الانضباط والعمل ضمن فريق تحت ضغط.</p>
+</section>
+
+<section id="skills" class="wrap">
+  <div class="section-head">
+    <span class="no">03</span>
+    <h2>المهارات</h2>
+  </div>
+  <div class="balance">
+    <div class="balance-col">
+      <h3>محاسبة ومال</h3>
+      <ul>
+        <li>القيود اليومية والتسويات <span class="dots">···</span></li>
+        <li>إعداد العروض الفنية والمالية <span class="dots">···</span></li>
+        <li>تحليل الأسواق المالية (فوركس) <span class="dots">···</span></li>
+        <li>Excel المتقدم <span class="dots">···</span></li>
+        <li>الإقرارات الضريبية <span class="dots">···</span></li>
+      </ul>
+    </div>
+    <div class="balance-divider"></div>
+    <div class="balance-col">
+      <h3>تقنية وبرمجة</h3>
+      <ul>
+        <li>#C وWindows Forms <span class="dots">···</span></li>
+        <li>قواعد بيانات SQL Server <span class="dots">···</span></li>
+        <li>البرمجة كائنية التوجه (OOP) <span class="dots">···</span></li>
+        <li>HTML وCSS <span class="dots">···</span></li>
+        <li>Canva للتصميم <span class="dots">···</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="wrap">
+  <div class="section-head">
+    <span class="no">04</span>
+    <h2>التعليم والشهادات</h2>
+  </div>
+  <div class="dual">
+    <div>
+      <ul class="cert-list">
+        <li><span>المحاسب المالي المحترف (PFA)</span><span class="tag">certificate</span></li>
+        <li><span>دبلومة التحليل المالي والفني للأسواق</span><span class="tag">certificate</span></li>
+        <li><span>سوق الصرف الأجنبي (Forex)</span><span class="tag">certificate</span></li>
+        <li><span>Introduction to MS Excel + LOOKUP</span><span class="tag">certificate</span></li>
+        <li><span>#C – Level 1 & Windows Forms</span><span class="tag">certificate</span></li>
+        <li><span>OOP as it Should Be</span><span class="tag">certificate</span></li>
+        <li><span>Database – SQL (Level 1 & 2 + Projects)</span><span class="tag">certificate</span></li>
+        <li><span>C# & Database Connectivity</span><span class="tag">certificate</span></li>
+        <li><span>Algorithms & Problem-Solving (Lv 1–5)</span><span class="tag">certificate</span></li>
+        <li><span>HTML Deep Dive / CSS Foundations</span><span class="tag">certificate</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="edu-card">
+        <h3>بكالوريوس التجارة وإدارة الأعمال</h3>
+        <p>قسم الاقتصاد والتجارة الخارجية</p>
+        <p>جامعة حلوان</p>
+        <span class="year">2022</span>
+      </div>
+      <div class="lang-row">
+        <div><span class="label">العربية</span>اللغة الأم</div>
+        <div><span class="label">English</span>متوسط</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>تواصل معي</h2>
+    <p class="lead">مفتوح لفرص في المحاسبة والمالية، أو في قطاع المقاولات، أو أي دور بيجمع بين الاتنين.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="label">Email</span>
+        <a href="mailto:heshamahme1998@gmail.com">heshamahme1998@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="label">Phone</span>
+        <a href="tel:+966576642059">+966 57 664 2059</a>
+      </div>
+      <div class="contact-item">
+        <span class="label">LinkedIn</span>
+        <a href="https://linkedin.com/in/heshamahme1998" target="_blank" rel="noopener">linkedin.com/in/heshamahme1998</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>Al-Bukayriyah, Al-Qassim, Saudi Arabia</span>
+      <span>&copy; 2026 Hesham Ahmed Mohamedein</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
+</script>
+
+</body>
+</html>
